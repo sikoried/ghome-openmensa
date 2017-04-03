@@ -36,20 +36,25 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "deineAction":
+    if req.get('result').get('action') != 'speiseplan':
         return {}
 
-    r = requests.get("http://openmensa.org/api/v2/canteens/229/days/%s/meals" % datetime.date.today().isoformat())
+    url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % datetime.date.today().isoformat()
 
+    print("Requesting menu from " + url)
+
+    r = requests.get(url)
+
+    # dummy response
     res = {
-        'speech': "I'm sorry, I can't retrieve the cafeteria's menu.",
-        'displayText': "Menu unavailable",
-        'source': 'dein Webhook'
+        'speech': "Nix wissen.",
+        'displayText': "Nix wissen.",
+        'source': 'openmensa.org'
     }
 
     if r.status_code == 200:
         print(r.json())
-        res['speech'] = "On the menu today are " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
+        res['speech'] = "Heut gibts " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
         res['displayText'] = res['speech']
 
     return res
