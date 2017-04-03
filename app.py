@@ -55,7 +55,10 @@ def processRequest(req):
 
     if r.status_code == 200:
         print(r.json())
-        res['speech'] = "Heut gibts " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
+        res['speech'] = "Heit gibts " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
+        res['displayText'] = res['speech']
+    elif r.status_code == 404:
+        res['speech'] = "Des is koa Mensadog, Depp!"
         res['displayText'] = res['speech']
 
     return res
