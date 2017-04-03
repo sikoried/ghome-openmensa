@@ -39,8 +39,18 @@ def processRequest(req):
     if req.get('result').get('action') != 'speiseplan':
         return {}
 
-    date = req.get('result').get('parameters').get('date', datetime.date.today().isoformat())
-    url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % date
+    date = req.get('result').get('parameters').get('date')
+    today = datetime.date.today().isoformat()
+    start = 'Heit gibts '
+    if date:
+        print("Using specified date " + date)
+        if date < today:
+            start = 'Do gobs '
+        elif date > today:
+            start = 'Do gibts '
+        url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % date
+    else:
+        url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % today
 
     print("Requesting menu from " + url)
 
@@ -55,7 +65,7 @@ def processRequest(req):
 
     if r.status_code == 200:
         print(r.json())
-        res['speech'] = "Heit gibts " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
+        res['speech'] = start + ", ".join(map(lambda x: x['name'], r.json()[:3]))
         res['displayText'] = res['speech']
     elif r.status_code == 404:
         res['speech'] = "Des is koa Mensadog, Depp!"
