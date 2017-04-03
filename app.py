@@ -44,7 +44,7 @@ def processRequest(req):
     start = 'Heit gibts '
     end = req.get('result').get('parameters').get('Extrawurst')
     if end:
-        end = '. Und kahne Extrawürscht, vegetarisch, so a Schmarrn!'
+        end = '. Und kahne Extrawurscht, vegetarisch, so a Schmarrn!'
 
     if date:
         print("Using specified date " + date + " instead of " + today)
