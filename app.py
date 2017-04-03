@@ -18,7 +18,7 @@ install_aliases()
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -26,8 +26,9 @@ def webhook():
     print(json.dumps(req, indent=4))
 
     res = processRequest(req)
-
     res = json.dumps(res, indent=4)
+
+    print(res)
 
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
@@ -47,6 +48,7 @@ def processRequest(req):
     }
 
     if r.status_code == 200:
+        print r.json()
         res['speech'] = "On the menu today are " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
         res['displayText'] = res['speech']
 
