@@ -1,0 +1,7 @@
+{
+  "name": "Webhook for openmensa.org",
+  "description": "Retrieve meal plans for student cafeterias all around Europe!",
+  "repository": "https://git.heroku.com/ghome-mensa",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "openmensa"]
+}
