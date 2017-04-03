@@ -42,6 +42,10 @@ def processRequest(req):
     date = req.get('result').get('parameters').get('date')
     today = datetime.date.today().isoformat()
     start = 'Heit gibts '
+    end = req.get('result').get('parameters').get('Extrawurst')
+    if end:
+        end = '. Und kahne Extrawürscht, vegetarisch, so a Schmarrn!'
+
     if date:
         print("Using specified date " + date + " instead of " + today)
         if date < today:
@@ -65,10 +69,10 @@ def processRequest(req):
 
     if r.status_code == 200:
         print(r.json())
-        res['speech'] = start + ", ".join(map(lambda x: x['name'], r.json()[:3]))
+        res['speech'] = start + ", ".join(map(lambda x: x['name'], r.json()[:3])) + end
         res['displayText'] = res['speech']
     elif r.status_code == 404:
-        res['speech'] = "Des is koa Mensadog, Depp!"
+        res['speech'] = "Des is koa Mensadog, Depp!" + end
         res['displayText'] = res['speech']
 
     return res
