@@ -48,7 +48,7 @@ def processRequest(req):
     }
 
     if r.status_code == 200:
-        print r.json()
+        print(r.json())
         res['speech'] = "On the menu today are " + ", ".join(map(lambda x: x['name'], r.json()[:3]))
         res['displayText'] = res['speech']
 
