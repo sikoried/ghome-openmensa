@@ -39,7 +39,8 @@ def processRequest(req):
     if req.get('result').get('action') != 'speiseplan':
         return {}
 
-    url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % datetime.date.today().isoformat()
+    date = req.get('result').get('parameters').get('date', datetime.date.today().isoformat())
+    url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % date
 
     print("Requesting menu from " + url)
 
