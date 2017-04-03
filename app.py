@@ -43,7 +43,7 @@ def processRequest(req):
     today = datetime.date.today().isoformat()
     start = 'Heit gibts '
     if date:
-        print("Using specified date " + date)
+        print("Using specified date " + date + " instead of " + today)
         if date < today:
             start = 'Do gobs '
         elif date > today:
