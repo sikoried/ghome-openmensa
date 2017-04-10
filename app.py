@@ -103,15 +103,18 @@ def processBundesliga(req):
     if tabellenfuehrer and not number:
         text = "Am %d. Spieltag führt %s die Tabelle mit %d Punkten an" % \
             (tab['matchday'], tab['standing'][0]['teamName'], tab['standing'][0]['points'])
+        print(text)
     elif absteiger and not number:
         text = "Am %d. Spieltag ist %s das Schlusslicht mit %d Punkten" % \
             (tab['matchday'], tab['standing'][-1]['teamName'], tab['standing'][-1]['points'])
+        print(text)
     elif number:
         if absteiger:
-            li = tab['standing'][-number:]
+            li = tab['standing'][-int(number):]
         else:
-            li = tab['standing'][:number]
+            li = tab['standing'][:int(number)]
         text = reduce(lambda a, i: "%s %s mit %d Punkten" % (a, i['teamName'], i['points']), li)
+        print(text)
 
     return {
         'speech': text,
