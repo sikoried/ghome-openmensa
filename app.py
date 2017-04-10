@@ -101,18 +101,17 @@ def processBundesliga(req):
 
     text = 'Koan Blahn.'
     if tabellenfuehrer and not number:
-        print("sowas..." + str(tab['standing'][0]))
-        text = "Am %d. Spieltag führt %s die Tabelle mit %d Punkten an" % \
+        text = u"Am %d. Spieltag führt %s die Tabelle mit %d Punkten an" % \
             (tab['matchday'], tab['standing'][0]['teamName'], tab['standing'][0]['points'])
     elif absteiger and not number:
-        text = "Am %d. Spieltag ist %s das Schlusslicht mit %d Punkten" % \
+        text = u"Am %d. Spieltag ist %s das Schlusslicht mit %d Punkten" % \
             (tab['matchday'], tab['standing'][-1]['teamName'], tab['standing'][-1]['points'])
     elif number:
         if absteiger:
             li = tab['standing'][-int(number):]
         else:
             li = tab['standing'][:int(number)]
-        text = reduce(lambda a, i: "%s %s mit %d Punkten" % (a, i['teamName'], i['points']), li, "")
+        text = reduce(lambda a, i: u"%s %s mit %d Punkten, " % (a, i['teamName'], i['points']), li, u"")
 
     return {
         'speech': text,
