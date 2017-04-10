@@ -151,7 +151,7 @@ def processMenueAuskunft(req):
     if r.status_code == 200:
         print(r.json())
         if req.get('result').get('parameters').get('vegetarisch'):
-            gerichte = filter(lambda x: any(w in x['name'].lower() for w in ['chicken', 'hähnchen', 'hühnchen', 'huhn']) or 'mit Fleisch' not in x['notes'], r.json())
+            gerichte = filter(lambda x: any(w in x['name'].lower() for w in ['chicken', u'hähnchen', u'hühnchen', 'huhn']) or 'mit Fleisch' not in x['notes'], r.json())
         else:
             gerichte = r.json()
         res['speech'] = start + ", ".join(map(lambda x: x['name'], gerichte[:3])) + end
