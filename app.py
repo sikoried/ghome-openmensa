@@ -59,7 +59,11 @@ def processEcho(req):
 
 
 def processChuckNorris(req):
-    url = 'http://api.icndb.com/jokes/random'
+    n = 1
+    if req.get('result').get('parameters').get('number'):
+        n = int(req.get('result').get('parameters').get('number'))
+
+    url = 'http://api.icndb.com/jokes/random/' + n
     if req.get('result').get('parameters').get('name'):
         url += "?firstName=%s&lastName=" % req.get('result').get('parameters').get('name')
 
