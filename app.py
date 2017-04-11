@@ -76,7 +76,7 @@ def processChuckNorris(req):
 
     if r.status_code == 200 and r.json()['type'] == 'success':
         print(r.json())
-        res['speech'] = r.json()['value']['joke']
+        res['speech'] = u",".join(map(lambda x: x['joke'], r.json()['value']))
         res['displayText'] = res['speech']
 
     return res
