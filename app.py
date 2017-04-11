@@ -143,7 +143,7 @@ def processMenueAuskunft(req):
 
     # dummy response
     res = {
-        'speech': "Da bin ich überfragt.",
+        'speech': u"Da bin ich überfragt.",
         'displayText': "Da bin ich überfragt",
         'source': 'openmensa.org'
     }
