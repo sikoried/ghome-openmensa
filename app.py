@@ -125,7 +125,6 @@ def processMenueAuskunft(req):
     today = datetime.date.today().isoformat()
 
     start = u'Heid gibts '
-    end = req.get('result').get('parameters').get('Extrawurst')
 
     if date:
         print("Using specified date " + date + " instead of " + today)
@@ -154,7 +153,7 @@ def processMenueAuskunft(req):
             gerichte = filter(lambda x: any(w in x['name'].lower() for w in [u'chicken', u'hähnchen', u'hühnchen', u'huhn']) or u'mit Fleisch' not in x['notes'], r.json())
         else:
             gerichte = r.json()
-        res['speech'] = start + u", ".join(map(lambda x: x['name'], gerichte[:3])) + end
+        res['speech'] = start + u", ".join(map(lambda x: x['name'], gerichte[:3]))
         res['displayText'] = res['speech']
     elif r.status_code == 404:
         res['speech'] = u"Des is koa Mensadog, Frischling!"
