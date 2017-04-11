@@ -124,15 +124,15 @@ def processMenueAuskunft(req):
     date = req.get('result').get('parameters').get('date')
     today = datetime.date.today().isoformat()
 
-    start = 'Heid gibts '
+    start = u'Heid gibts '
     end = req.get('result').get('parameters').get('Extrawurst')
 
     if date:
         print("Using specified date " + date + " instead of " + today)
         if date < today:
-            start = 'Do gobs '
+            start = u'Do gobs '
         elif date > today:
-            start = 'Do gibts '
+            start = u'Do gibts '
         url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % date
     else:
         url = "http://openmensa.org/api/v2/canteens/229/days/%s/meals" % today
@@ -151,13 +151,13 @@ def processMenueAuskunft(req):
     if r.status_code == 200:
         print(r.json())
         if req.get('result').get('parameters').get('vegetarisch'):
-            gerichte = filter(lambda x: any(w in x['name'].lower() for w in ['chicken', u'hähnchen', u'hühnchen', 'huhn']) or 'mit Fleisch' not in x['notes'], r.json())
+            gerichte = filter(lambda x: any(w in x['name'].lower() for w in [u'chicken', u'hähnchen', u'hühnchen', u'huhn']) or u'mit Fleisch' not in x['notes'], r.json())
         else:
             gerichte = r.json()
-        res['speech'] = start + ", ".join(map(lambda x: x['name'], gerichte[:3])) + end
+        res['speech'] = start + u", ".join(map(lambda x: x['name'], gerichte[:3])) + end
         res['displayText'] = res['speech']
     elif r.status_code == 404:
-        res['speech'] = "Des is koa Mensadog, Frischling!"
+        res['speech'] = u"Des is koa Mensadog, Frischling!"
         res['displayText'] = res['speech']
 
     return res
