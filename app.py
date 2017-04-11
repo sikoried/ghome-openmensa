@@ -59,9 +59,9 @@ def processEcho(req):
 
 
 def processChuckNorris(req):
-    n = 1
+    n = "1"
     if req.get('result').get('parameters').get('number'):
-        n = int(req.get('result').get('parameters').get('number'))
+        n = req.get('result').get('parameters').get('number')
 
     url = 'http://api.icndb.com/jokes/random/' + n
     if req.get('result').get('parameters').get('name'):
@@ -76,7 +76,7 @@ def processChuckNorris(req):
 
     if r.status_code == 200 and r.json()['type'] == 'success':
         print(r.json())
-        res['speech'] = u",".join(map(lambda x: x['joke'], r.json()['value']))
+        res['speech'] = u" ".join(map(lambda x: x['joke'], r.json()['value']))
         res['displayText'] = res['speech']
 
     return res
